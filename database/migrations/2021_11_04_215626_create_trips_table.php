@@ -15,6 +15,7 @@ class CreateTripsTable extends Migration
     {
         Schema::create('trips', function (Blueprint $table) {
             $table->id();
+            $table->string('code', 6)->unique();
             $table->foreignId('from_city_id')->constrained('cities');
             $table->foreignId('to_city_id')->constrained('cities');
             $table->unsignedInteger('place_count');

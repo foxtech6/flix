@@ -16,9 +16,11 @@ class CreateReservesTable extends Migration
         Schema::create('reserves', function (Blueprint $table) {
             $table->id();
             $table->foreignId('trip_id')->constrained();
-            $table->string('username');
+            $table->string('email');
             $table->unsignedInteger('place_count');
             $table->timestamps();
+
+            $table->unique(['trip_id', 'email']);
         });
     }
 
