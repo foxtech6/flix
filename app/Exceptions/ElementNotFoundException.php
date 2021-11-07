@@ -6,7 +6,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class TripNotFoundException extends HttpResponseException
+class ElementNotFoundException extends HttpResponseException
 {
     /**
      * @param null $message
@@ -15,7 +15,7 @@ class TripNotFoundException extends HttpResponseException
     public function __construct($message = null, $code = null)
     {
         parent::__construct(new JsonResponse(
-            ['error' => $message ?? 'Trip not found'],
+            ['error' => $message ?? 'Element not found'],
             $code ?? Response::HTTP_NOT_FOUND,
         ));
     }

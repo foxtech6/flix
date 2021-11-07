@@ -2,8 +2,9 @@
 
 namespace App\Activities\Actions;
 
+use Exception;
 use App\Activities\Tasks\{GetReserveByTripAndEmailTask, GetTripByCodeTask, StoreReserveTask, UpdateTripTask};
-use App\Exceptions\{PlacesNotAvailableException, ReserveExistsException, TripNotFoundException};
+use App\Exceptions\{PlacesNotAvailableException, ReserveExistsException};
 use Illuminate\Support\Facades\DB;
 
 class PlaceReservationAction extends ActionAbstract
@@ -25,16 +26,13 @@ class PlaceReservationAction extends ActionAbstract
      * @param string $tripCode
      * @param string $email
      * @param int $places
+     * @throws Exception
      */
     public function run(string $tripCode, string $email, int $places): void
     {
         DB::beginTransaction();
         try {
             $trip = $this->getTripByCodeTask->run($tripCode);
-
-            if (!$trip) {
-                throw new TripNotFoundException();
-            }
 
             if (0 < $this->getReserveByTripAndEmailTask->run($trip->id, $email)->count()) {
                 throw new ReserveExistsException();
@@ -50,7 +48,7 @@ class PlaceReservationAction extends ActionAbstract
             $this->updateTripTask->run($trip->id, freePlaces: $freePlaces);
 
             DB::commit();
-        } catch (TripNotFoundException|PlacesNotAvailableException|ReserveExistsException $e) {
+        } catch (Exception $e) {
             DB::rollBack();
 
             throw $e;

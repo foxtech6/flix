@@ -2,7 +2,7 @@
 
 namespace App\Activities\Tasks;
 
-use App\Exceptions\TripNotFoundException;
+use App\Exceptions\ElementNotFoundException;
 use App\Models\Trip;
 
 class UpdateTripTask extends TaskAbstract
@@ -22,7 +22,7 @@ class UpdateTripTask extends TaskAbstract
      * @param int|null $fromCityId
      * @param int|null $toCityId
      * @return Trip
-     * @throws TripNotFoundException
+     * @throws ElementNotFoundException
      */
     public function run(
         int $id,
@@ -35,7 +35,7 @@ class UpdateTripTask extends TaskAbstract
         $trip = $this->trip->find($id);
 
         if (!$trip) {
-            throw new TripNotFoundException();
+            throw new ElementNotFoundException('Trip not found');
         }
 
         if (null !== $code) {

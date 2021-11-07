@@ -12,10 +12,21 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $places
  *
  * @method Builder where($column, $operator = null, $value = null, $boolean = 'and')
+ * @method Reserve find(int $id)
  * @method Reserve create(array $attributes = [])
  */
 class Reserve extends Model
 {
+    /**
+     * @var string
+     */
+    public const MODE_REMOVE_PLACES = 'remove';
+
+    /**
+     * @var string
+     */
+    public const MODE_ADD_PLACES = 'add';
+
     /**
      * The attributes that are mass assignable.
      *

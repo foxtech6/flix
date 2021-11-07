@@ -5,7 +5,7 @@ namespace App\Activities\Tasks;
 use App\Exceptions\ElementNotFoundException;
 use App\Models\Trip;
 
-class GetTripByCodeTask extends TaskAbstract
+class GetTripTask extends TaskAbstract
 {
     /**
      * @param Trip $trip
@@ -15,12 +15,12 @@ class GetTripByCodeTask extends TaskAbstract
     ) {}
 
     /**
-     * @param string $code
+     * @param int $id
      * @return Trip
      */
-    public function run(string $code): Trip
+    public function run(int $id): Trip
     {
-        $trip = $this->trip->firstWhere('code', $code);
+        $trip = $this->trip->find($id);
 
         if (!$trip) {
             throw new ElementNotFoundException('Trip not found');
