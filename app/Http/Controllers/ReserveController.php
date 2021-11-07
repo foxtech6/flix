@@ -6,7 +6,7 @@ use App\Models\Reserve;
 use Exception;
 use App\Activities\Actions\{
     DeleteReserveAction,
-    GetReservesByEmailAction,
+    GetReservesByTripAndEmailAction,
     PlaceReservationAction,
     UpdateReservePlacesAction
 };
@@ -40,10 +40,10 @@ class ReserveController extends Controller
 
     /**
      * @param string $email
-     * @param GetReservesByEmailAction $action
+     * @param GetReservesByTripAndEmailAction $action
      * @return MessageBag|AnonymousResourceCollection
      */
-    public function index(string $email, GetReservesByEmailAction $action): MessageBag|AnonymousResourceCollection
+    public function index(string $email, GetReservesByTripAndEmailAction $action): MessageBag|AnonymousResourceCollection
     {
         $validator = Validator::make(['email' => $email], [
             'email' => 'required|string|email|exists:reserves,email',
@@ -53,7 +53,7 @@ class ReserveController extends Controller
             return $validator->errors();
         }
 
-        return ReserveResource::collection($action->run($email));
+        return ReserveResource::collection($action->run(email: $email));
     }
 
     /**

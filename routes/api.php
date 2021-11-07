@@ -13,12 +13,13 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+$router->group(['prefix' => 'api/v1'], function () use ($router) {
+    $router->get('trips', 'TripController@index');
 
-$router->get('api/v1/trips', 'TripController@index');
-$router->post('api/v1/reserves', 'ReserveController@store');
-$router->get('api/v1/reserves/{email}', 'ReserveController@index');
-$router->put('api/v1/reserves/{id}/places', 'ReserveController@updatePlaces');
-$router->delete('api/v1/reserves/{id}', 'ReserveController@delete');
+    $router->post('reserves', 'ReserveController@store');
+    $router->get('reserves/{email}', 'ReserveController@index');
+    $router->put('reserves/{id}/places', 'ReserveController@updatePlaces');
+    $router->delete('reserves/{id}', 'ReserveController@delete');
+
+    $router->get('admin/trip/{id}/reserves', 'Admin\ReserveController@index');
+});
