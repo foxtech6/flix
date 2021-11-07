@@ -38,23 +38,23 @@ class UpdateTripTask extends TaskAbstract
             throw new TripNotFoundException();
         }
 
-        if ($code !== null) {
+        if (null !== $code) {
             $trip->code = $code;
         }
 
-        if ($places !== null) {
+        if (null !== $places) {
             $trip->$places = $places;
         }
 
-        if ($freePlaces !== null) {
+        if (null !== $freePlaces) {
             $trip->free_places = $freePlaces;
         }
 
-        if ($fromCityId !== null) {
+        if (null !== $fromCityId) {
             $trip->from_city_id = $fromCityId;
         }
 
-        if ($toCityId !== null) {
+        if (null !== $toCityId) {
             $trip->to_city_id = $toCityId;
         }
 

@@ -15,15 +15,26 @@ class GetReserveByTripAndEmailTask extends TaskAbstract
     ) {}
 
     /**
-     * @param int $tripId
-     * @param string $email
+     * @param int|null $tripId
+     * @param string|null $email
      * @return Collection
      */
-    public function run(int $tripId, string $email): Collection
+    public function run(int $tripId = null, string $email = null): Collection
     {
-        return $this->reserve->where([
-            'trip_id' => $tripId,
-            'email' => $email
-        ])->get();
+        $data = [];
+
+        if (null !== $tripId) {
+            $data['trip_id'] = $tripId;
+        }
+
+        if (null !== $email) {
+            $data['email'] = $email;
+        }
+
+        if (empty($data)) {
+            return collect();
+        }
+
+        return $this->reserve->where($data)->get();
     }
 }

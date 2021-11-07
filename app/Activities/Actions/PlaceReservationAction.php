@@ -32,17 +32,17 @@ class PlaceReservationAction extends ActionAbstract
         try {
             $trip = $this->getTripByCodeTask->run($tripCode);
 
-            if ($this->getReserveByTripAndEmailTask->run($trip->id, $email)->count() > 0) {
-                throw new ReserveExistsException();
-            }
-
             if (!$trip) {
                 throw new TripNotFoundException();
             }
 
+            if (0 < $this->getReserveByTripAndEmailTask->run($trip->id, $email)->count()) {
+                throw new ReserveExistsException();
+            }
+
             $freePlaces = $trip->free_places - $places;
 
-            if ($freePlaces < 0) {
+            if (0 > $freePlaces) {
                 throw new PlacesNotAvailableException();
             }
 
