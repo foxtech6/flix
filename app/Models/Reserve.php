@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{Builder, Model};
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $trip_id
  * @property string $email
  * @property int $places
+ *
+ * @method Builder where($column, $operator = null, $value = null, $boolean = 'and')
+ * @method Reserve create(array $attributes = [])
  */
 class Reserve extends Model
 {

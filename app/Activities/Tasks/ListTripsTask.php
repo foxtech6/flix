@@ -11,7 +11,7 @@ class ListTripsTask extends TaskAbstract
      * @param Trip $trip
      */
     public function __construct(
-        private Trip $trip
+        private Trip $trip,
     ) {}
 
     /**

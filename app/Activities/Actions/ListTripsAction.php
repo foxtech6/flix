@@ -11,7 +11,7 @@ class ListTripsAction extends ActionAbstract
      * @param ListTripsTask $listTripsTask
      */
     public function __construct(
-        private ListTripsTask $listTripsTask
+        private ListTripsTask $listTripsTask,
     ) {}
 
     /**
