@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reserve;
-use App\Activities\Actions\{GetReservesByEmailAction, PlaceReservationAction, UpdateReservePlacesAction};
+use Exception;
+use App\Activities\Actions\{
+    DeleteReserveAction,
+    GetReservesByEmailAction,
+    PlaceReservationAction,
+    UpdateReservePlacesAction
+};
 use App\Http\Resources\ReserveResource;
 use Illuminate\Http\{JsonResponse, Request};
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -55,6 +61,7 @@ class ReserveController extends Controller
      * @param int $id
      * @param UpdateReservePlacesAction $action
      * @return JsonResponse|MessageBag
+     * @throws Exception
      */
     public function updatePlaces(Request $request, int $id, UpdateReservePlacesAction $action): JsonResponse|MessageBag
     {
@@ -74,5 +81,25 @@ class ReserveController extends Controller
         $action->run($request->id, $request->places, $request->mode);
 
         return response()->json(['message' => 'You have successfully updated places']);
+    }
+
+    /**
+     * @param int $id
+     * @param DeleteReserveAction $action
+     * @return JsonResponse|MessageBag
+     */
+    public function delete(int $id, DeleteReserveAction $action): JsonResponse|MessageBag
+    {
+        $validator = Validator::make(['id' => $id], [
+            'id' => 'required|int|exists:reserves,id',
+        ]);
+
+        if ($validator->fails()) {
+            return $validator->errors();
+        }
+
+        $action->run($id);
+
+        return response()->json(['message' => 'Your reservation has been successfully canceled']);
     }
 }
