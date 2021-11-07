@@ -24,6 +24,7 @@ class ReserveController extends Controller
      * @param PlaceReservationAction $action
      * @return JsonResponse
      * @throws ValidationException
+     * @throws Exception
      */
     public function store(Request $request, PlaceReservationAction $action): JsonResponse
     {

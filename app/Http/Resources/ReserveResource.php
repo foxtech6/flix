@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\City;
 use App\Models\Trip;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Request;

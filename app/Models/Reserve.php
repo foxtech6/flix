@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method Builder where($column, $operator = null, $value = null, $boolean = 'and')
  * @method Reserve find(int $id)
  * @method Reserve create(array $attributes = [])
+ * @method Reserve firstWhere($column, $operator = null, $value = null, $boolean = 'and')
  */
 class Reserve extends Model
 {

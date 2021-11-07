@@ -17,13 +17,13 @@ class UpdateReserveTask extends TaskAbstract
     /**
      * @param int $id
      * @param string|null $email
-     * @param string|null $places
+     * @param int|null $places
      * @return Reserve
      */
     public function run(
         int $id,
         string $email = null,
-        string $places = null,
+        int $places = null,
     ): Reserve {
         $reserve = $this->reserve->find($id);
 
@@ -31,11 +31,11 @@ class UpdateReserveTask extends TaskAbstract
             throw new ElementNotFoundException('Reserve not found');
         }
 
-        if (null != $places) {
+        if (null !== $places) {
             $reserve->places = $places;
         }
 
-        if (null != $email) {
+        if (null !== $email) {
             $reserve->email = $email;
         }
 

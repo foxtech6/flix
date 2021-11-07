@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $free_places
  *
  * @method static bool insert(array $values)
+ * @method static Trip create(array $attributes = [])
  * @method Trip find(int $id)
  * @method Trip firstWhere($column, $operator = null, $value = null, $boolean = 'and')
  */

@@ -5,7 +5,7 @@ namespace App\Activities\Actions;
 
 use App\Exceptions\IncorrectPlacesCountException;
 use App\Exceptions\PlacesNotAvailableException;
-use App\Activities\Tasks\{DeleteReserveTask, GetReserveTask, GetTripTask, UpdateReserveTask, UpdateTripTask};
+use App\Activities\Tasks\{GetReserveTask, GetTripTask, UpdateReserveTask, UpdateTripTask};
 use App\Models\Reserve;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -17,14 +17,12 @@ class UpdateReservePlacesAction extends ActionAbstract
      * @param GetTripTask $getTripTask
      * @param UpdateTripTask $updateTripTask
      * @param UpdateReserveTask $updateReserveTask
-     * @param DeleteReserveTask $deleteReserveTask
      */
     public function __construct(
         private GetReserveTask $getReserveTask,
         private GetTripTask $getTripTask,
         private UpdateTripTask $updateTripTask,
         private UpdateReserveTask $updateReserveTask,
-        private DeleteReserveTask $deleteReserveTask,
     ) {}
 
     /**
@@ -35,6 +33,10 @@ class UpdateReservePlacesAction extends ActionAbstract
      */
     public function run(int $id, int $places, string $mode): void
     {
+        if (0 > $places) {
+            throw new IncorrectPlacesCountException();
+        }
+
         DB::beginTransaction();
         try {
             $reserve = $this->getReserveTask->run($id);
@@ -66,20 +68,5 @@ class UpdateReservePlacesAction extends ActionAbstract
 
             throw $e;
         }
-    }
-
-    /**
-     * @param int $reserveId
-     * @param int $places
-     */
-    private function removePlaces(int $reserveId, int $places): void
-    {
-        if (0 > $places) {
-            $this->deleteReserveTask->run($reserveId);
-
-            return;
-        }
-
-        $this->updateReserveTask->run($reserveId, places: $places);
     }
 }
