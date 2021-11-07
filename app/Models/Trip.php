@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $code
  * @property int $from_city_id
  * @property int $to_city_id
- * @property int $place_count
+ * @property int $places
+ * @property int $free_places
  *
  * @method static bool insert(array $values)
  */
@@ -25,7 +26,8 @@ class Trip extends Model
         'code',
         'from_city_id',
         'to_city_id',
-        'place_count',
+        'places',
+        'free_places',
     ];
 
     /**

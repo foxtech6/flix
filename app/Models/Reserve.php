@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $id
  * @property int $trip_id
  * @property string $email
- * @property int $place_count
+ * @property int $places
  */
 class Reserve extends Model
 {
@@ -21,7 +21,7 @@ class Reserve extends Model
     protected $fillable = [
         'trip_id',
         'email',
-        'place_count',
+        'places',
     ];
 
     /**

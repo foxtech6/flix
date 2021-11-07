@@ -20,7 +20,7 @@ class CreateReservesTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
             $table->string('email');
-            $table->unsignedInteger('place_count');
+            $table->unsignedInteger('places');
             $table->timestamps();
 
             $table->unique(['trip_id', 'email']);

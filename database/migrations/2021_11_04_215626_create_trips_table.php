@@ -25,7 +25,8 @@ class CreateTripsTable extends Migration
                 ->constrained('cities')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
-            $table->unsignedInteger('place_count');
+            $table->unsignedInteger('places');
+            $table->unsignedInteger('free_places');
             $table->timestamps();
         });
     }

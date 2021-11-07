@@ -16,3 +16,7 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('trips', 'TripController@index');
+$router->post('reserves', 'ReserveController@store');
+$router->put('reserves', 'ReserveController@store');
